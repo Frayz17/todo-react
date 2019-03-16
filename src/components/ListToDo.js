@@ -8,12 +8,20 @@ export default class ListToDo extends Component {
   render() {
     return (
       <div>
-        <ItemToDo />
+        <ItemToDo
+          title={"Do First"}
+        />
+        <ItemToDo
+          title={"Do Second"}
+        />
+        <ItemToDo
+          title={"Do Third"}
+        />
       </div>
     )
   }
 }
 
-ListToDo.propTypes = {
-  prop: PropTypes
-}
+// ListToDo.propTypes = {
+//   prop: PropTypes
+// }
