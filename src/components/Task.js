@@ -9,8 +9,20 @@ export default class Task extends Component {
     }
   }
 
-  isItemChecked(event) {
+  checkedHandler = (event) => {
     if (event.target.checked) {
+      this.setState({
+        isChecked: true
+      })
+    } else {
+      this.setState({
+        isChecked: false
+      })
+    }
+  }
+
+  isTaskChecked() {
+    if (this.state.isChecked) {
       return (
         <s>
           {" "}
@@ -38,8 +50,8 @@ export default class Task extends Component {
   render() {
     return (
       <div>
-        <input type="checkbox" value={} onChange={this.isItemChecked}/>
-        
+        <input type="checkbox"  onChange={this.checkedHandler}/>
+        {this.isTaskChecked()}
       </div>
     )
     }
