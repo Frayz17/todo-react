@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-export default function Task({title}) {
+export default class Task extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isChecked: false
+    }
+  }
 
-  function isItemChecked(event) {
+  isItemChecked(event) {
     if (event.target.checked) {
       return (
         <s>
           {" "}
-          <span>{title}</span>
+          <span>{this.props.title}</span>
           {" "}
           <button>x</button>
           {" "}
@@ -19,7 +25,7 @@ export default function Task({title}) {
       return (
         <React.Fragment>
           {" "}
-          <span>{title}</span>
+          <span>{this.props.title}</span>
           {" "}
           <button>x</button>
           {" "}
@@ -29,12 +35,15 @@ export default function Task({title}) {
     }
   }
 
-  return (
-    <div>
-      <input type="checkbox" onChange={isItemChecked}/>
-      
-    </div>
-  )
+  render() {
+    return (
+      <div>
+        <input type="checkbox" value={} onChange={this.isItemChecked}/>
+        
+      </div>
+    )
+    }
+  
 }
 
 Task.propTypes = {
