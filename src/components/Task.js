@@ -9,55 +9,45 @@ export default class Task extends Component {
     }
   }
 
-  checkedHandler = (event) => {
-    if (event.target.checked) {
-      this.setState({
-        isChecked: true
-      })
-    } else {
-      this.setState({
-        isChecked: false
-      })
-    }
-  }
+  // checkedHandler = (event) => {
+  //   const { id, taskDoneHandler } = this.props;
+  //   taskDoneHandler(id); // switch state 'done' of task in ListToDo
 
-  isTaskChecked() {
-    if (this.state.isChecked) {
-      return (
-        <s>
-          {" "}
-          <span>{this.props.title}</span>
-          {" "}
-          <button>x</button>
-          {" "}
-          <span>(ghfgj)</span>
-        </s>
-      )
-    } else {
-      return (
-        <React.Fragment>
-          {" "}
-          <span>{this.props.title}</span>
-          {" "}
-          <button>x</button>
-          {" "}
-          <span>(ghfgj)</span>
-        </React.Fragment>
-      )
-    }
-  }
+  //   if (event.target.checked) {
+  //     this.setState({
+  //       isChecked: true
+  //     })
+  //   } else {
+  //     this.setState({
+  //       isChecked: false
+  //     })
+  //   }
+  // }
 
   render() {
+    // const { isChecked } = this.state;
+    const { id, done, name, taskDoneHandler } = this.props;
+    const styleStroke = {
+      textDecoration: "line-through"
+    };
+    
     return (
-      <div>
-        <input type="checkbox"  onChange={this.checkedHandler}/>
-        {this.isTaskChecked()}
+      <div style={done === true ? styleStroke : null}>
+        <input type="checkbox" checked={done === true ? true : null}  onChange={() => taskDoneHandler(id)}/>
+        {" "}
+        <span>{name}</span>
+        {" "}
+        <button>x</button>
+        {" "}
+        <span>(ghfgj)</span>
       </div>
     )
-    }
-  
+  }
 }
 
 Task.propTypes = {
-  title: PropTypes.string
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  done: PropTypes.bool.isRequired,
+  taskDoneHandler: PropTypes.func.isRequired
 }
