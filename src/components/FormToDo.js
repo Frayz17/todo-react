@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { createTask, tasksDB } from '../model';
 import PropTypes from 'prop-types';
 
 export default class FormToDo extends Component {
+  static propTypes = {
+    handlerCreateTask: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -18,25 +21,20 @@ export default class FormToDo extends Component {
     this.setState({ inputValue: '' })
   }
 
-  // wrapperHandlerCreateTask = () => {
-
-  // }
+  wrapperHandlerCreateTask = (inputValue) => () => {
+    this.props.handlerCreateTask(inputValue);
+    this.resetValue();
+  }
 
   render() {
     const { inputValue } = this.state;
-    const { handlerCreateTask } = this.props;
 
     return (
       <div>
-        <input type="text" value={inputValue} onChange={this.handlerInputValue} />
+        <input type="text" value={ inputValue } onChange={ this.handlerInputValue } />
         {" "}
-        <button onClick={ handlerCreateTask(inputValue) }>Add</button>
-
+        <button disabled={ inputValue === '' ? true : null } onClick={ this.wrapperHandlerCreateTask(inputValue) }>Add</button>
       </div>
     )
   }
-}
-
-FormToDo.propTypes = {
-  handlerCreateTask: PropTypes.func.isRequired
 }

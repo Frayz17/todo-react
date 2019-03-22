@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { createTask, tasksLib } from '../model';
-import Task from './Task';
 import FormToDo from './FormToDo';
-// import PropTypes from 'prop-types'
+import ListToDo from './ListToDo';
+import { createTask, tasksLib } from '../model';
 
 export default class ModuleToDo extends Component {
   constructor(props) {
@@ -21,19 +20,29 @@ export default class ModuleToDo extends Component {
     })
   }
 
-  handlerCreateTask = (name) => () => {
-    const task = createTask({name: name});
-    tasksLib.push(task);
+  handlerCreateTask = (name) => {
+    if (name !== '' && name !== null && name !== undefined) {
+      const task = createTask({name: name});
+
+      this.setState({
+        tasks: {
+          ...this.state.tasks,
+          [task.id]: task  
+        }
+      })
+    }
+  }
+
+  handlerTaskDelete = (id) => () => {
+    const tasks  = this.state.tasks;
+    delete tasks[id]
 
     this.setState({
-      tasks: {
-        ...this.state.tasks,
-        [task.id]: task  
-      }
+      tasks
     })
   }
 
-  taskDoneHandler = (id) => {
+  handlerTaskDone = (id) => {
     const { tasks } = this.state;
 
     this.setState({
@@ -49,28 +58,18 @@ export default class ModuleToDo extends Component {
 
   render() {
     let { tasks } = this.state;
-    tasks = Object.keys(tasks).map(k => tasks[k]);
 
     return (
       <div>
         <FormToDo 
           handlerCreateTask={this.handlerCreateTask}
         />
-        
-        {tasks.map(task => (
-          <Task
-            key={task.id}
-            id={task.id}
-            name={task.name}
-            done={task.done}
-            taskDoneHandler={this.taskDoneHandler}
-          />
-        ))}
+        <ListToDo 
+          tasks={tasks}
+          handlerTaskDone={this.handlerTaskDone}
+          handlerTaskDelete ={this.handlerTaskDelete}
+        />
       </div>
     )
   }
 }
-
-// ListToDo.propTypes = {
-//   prop: PropTypes
-// }
