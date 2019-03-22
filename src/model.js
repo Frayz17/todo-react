@@ -8,3 +8,9 @@ export const createTask = (data) => {
     ...data
   }
 }
+
+export const tasksLib = [
+  createTask({name: 'Do First', done: true}),
+  createTask({name: 'Do Second'}),
+  createTask({name: 'Do Third'}),
+]

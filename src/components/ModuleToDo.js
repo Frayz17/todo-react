@@ -1,28 +1,35 @@
 import React, { Component } from 'react'
-import {createTask} from '../model';
-import Task from './Task'
-import PropTypes from 'prop-types'
+import { createTask, tasksLib } from '../model';
+import Task from './Task';
+import FormToDo from './FormToDo';
+// import PropTypes from 'prop-types'
 
-const tasksArr = [
-  createTask({name: 'Do First', done: true}),
-  createTask({name: 'Do Second'}),
-  createTask({name: 'Do Third'}),
-]
-
-export default class ListToDo extends Component {
+export default class ModuleToDo extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
 
   componentWillMount() {
-    const tasks = tasksArr.reduce((acc, curr) => {
+    const tasks = tasksLib.reduce((acc, curr) => {
       acc[curr.id] = curr;
       return acc;
     }, {});
 
     this.setState({
       tasks
+    })
+  }
+
+  handlerCreateTask = (name) => () => {
+    const task = createTask({name: name});
+    tasksLib.push(task);
+
+    this.setState({
+      tasks: {
+        ...this.state.tasks,
+        [task.id]: task  
+      }
     })
   }
 
@@ -46,6 +53,10 @@ export default class ListToDo extends Component {
 
     return (
       <div>
+        <FormToDo 
+          handlerCreateTask={this.handlerCreateTask}
+        />
+        
         {tasks.map(task => (
           <Task
             key={task.id}

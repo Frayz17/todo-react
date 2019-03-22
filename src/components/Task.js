@@ -1,48 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-export default class Task extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isChecked: false
-    }
+export default function Task({name, id, done, taskDoneHandler}) {
+  const styleStroke = {
+    textDecoration: "line-through"
   }
-
-  // checkedHandler = (event) => {
-  //   const { id, taskDoneHandler } = this.props;
-  //   taskDoneHandler(id); // switch state 'done' of task in ListToDo
-
-  //   if (event.target.checked) {
-  //     this.setState({
-  //       isChecked: true
-  //     })
-  //   } else {
-  //     this.setState({
-  //       isChecked: false
-  //     })
-  //   }
-  // }
-
-  render() {
-    // const { isChecked } = this.state;
-    const { id, done, name, taskDoneHandler } = this.props;
-    const styleStroke = {
-      textDecoration: "line-through"
-    };
     
-    return (
-      <div style={done === true ? styleStroke : null}>
-        <input type="checkbox" checked={done === true ? true : null}  onChange={() => taskDoneHandler(id)}/>
-        {" "}
-        <span>{name}</span>
-        {" "}
-        <button>x</button>
-        {" "}
-        <span>(ghfgj)</span>
-      </div>
-    )
-  }
+  return (
+    <div style={done === true ? styleStroke : null}>
+      <input type="checkbox" checked={ done }  onChange={ () => taskDoneHandler(id) }/>
+      {" "}
+      <span>{name}</span>
+      {" "}
+      <button>x</button>
+      {" "}
+      <span>{id}</span>
+    </div>
+  )
 }
 
 Task.propTypes = {

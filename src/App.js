@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import FormToDo from './components/FormToDo';
-import ListToDo from './components/ListToDo';
+
+import ModuleToDo from './components/ModuleToDo';
 
 class App extends Component {
 
   render() {
     return (
       <div>
-        <FormToDo
-          
-        />
-        <ListToDo
         
-        />
+        <ModuleToDo />
       </div>
     );
   }
