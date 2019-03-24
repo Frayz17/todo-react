@@ -9,7 +9,7 @@ const FILTER_SHOW_DONE = 2;
 
 export default class ListToDo extends Component {
   static propTypes = {
-    tasks: PropTypes.object.isRequired,
+    tasks: PropTypes.array.isRequired,
     handlerTaskDone: PropTypes.func.isRequired,
     handlerTaskDelete: PropTypes.func.isRequired
   }
@@ -45,8 +45,6 @@ export default class ListToDo extends Component {
     let { tasks, handlerTaskDone, handlerTaskDelete } = this.props;
 
     const filteringTasks = () => {
-      tasks = Object.keys(tasks).map(k => tasks[k]);
-
       switch (filterStatus) {
         case FILTER_SHOW_ACTIVE: return tasks.filter(task => task.done === false)
         case FILTER_SHOW_DONE:   return tasks.filter(task => task.done === true)
@@ -73,11 +71,29 @@ export default class ListToDo extends Component {
         <br/>
         <div>
           <span>Show: </span>
-          <button onClick={ handlerShowAll } className={'btnLink'}>All</button>
+
+          <button 
+            style={ filterStatus === 0 ? {fontWeight: "bold"} : null } 
+            onClick={ handlerShowAll } 
+            className={'btnLink'}
+          >All</button>
+
           {", "}
-          <button onClick={ handlerShowActive } className={'btnLink'}>Active</button>
+
+          <button 
+            style={ filterStatus === 1 ? {fontWeight: "bold"} : null } 
+            onClick={ handlerShowActive } 
+            className={'btnLink'}
+          >Active</button>
+
           {", "}
-          <button onClick={ handlerShowDone } className={'btnLink'}>Done</button>
+
+          <button 
+            style={ filterStatus === 2 ? {fontWeight: "bold"} : null } 
+            onClick={ handlerShowDone } 
+            className={'btnLink'}
+          >Done</button>
+
         </div>
       </React.Fragment>
     )

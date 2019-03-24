@@ -11,9 +11,9 @@ export default class ModuleToDo extends Component {
 
   componentWillMount() {
     const tasks = tasksLib.reduce((acc, curr) => {
-      acc[curr.id] = curr;
+      acc.push(curr);
       return acc;
-    }, {});
+    }, []);
 
     this.setState({
       tasks
@@ -22,18 +22,17 @@ export default class ModuleToDo extends Component {
 
   handlerCreateTask = (name) => {
       const task = createTask({name: name});
+      const tasks = [...this.state.tasks]
+      tasks.push(task)
 
       this.setState({
-        tasks: {
-          ...this.state.tasks,
-          [task.id]: task  
-        }
+        tasks
       })
   }
 
   handlerTaskDelete = (id) => () => {
-    const tasks  = this.state.tasks;
-    delete tasks[id]
+    let tasks  = [...this.state.tasks];
+    tasks = tasks.filter(task => task.id !== id)
 
     this.setState({
       tasks
@@ -41,16 +40,17 @@ export default class ModuleToDo extends Component {
   }
 
   handlerTaskDone = (id) => {
-    const { tasks } = this.state;
+    let tasks = [...this.state.tasks];
+
+    tasks = tasks.map(task => {
+      if (task.id === id) {
+        task.done = !task.done;
+      }
+      return task
+    })
 
     this.setState({
-      tasks: {
-        ...tasks,
-        [id]: {
-          ...tasks[id],
-          done: !tasks[id].done
-        }
-      }
+      tasks
     })
   }
 
