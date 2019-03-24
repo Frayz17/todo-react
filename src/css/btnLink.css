@@ -1,0 +1,10 @@
+.btnLink {
+  font-size: 19px;
+  color: blue;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}

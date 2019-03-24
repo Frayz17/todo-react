@@ -21,7 +21,6 @@ export default class ModuleToDo extends Component {
   }
 
   handlerCreateTask = (name) => {
-    if (name !== '' && name !== null && name !== undefined) {
       const task = createTask({name: name});
 
       this.setState({
@@ -30,7 +29,6 @@ export default class ModuleToDo extends Component {
           [task.id]: task  
         }
       })
-    }
   }
 
   handlerTaskDelete = (id) => () => {
@@ -64,6 +62,7 @@ export default class ModuleToDo extends Component {
         <FormToDo 
           handlerCreateTask={this.handlerCreateTask}
         />
+        <br />
         <ListToDo 
           tasks={tasks}
           handlerTaskDone={this.handlerTaskDone}
