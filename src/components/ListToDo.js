@@ -46,7 +46,8 @@ export default class ListToDo extends Component {
 
     const filteringTasks = () => {
       tasks = Object.keys(tasks).map(k => tasks[k]);
-
+      tasks = tasks.sort( (a, b) => a.date.getTime() - b.date.getTime() );
+      
       switch (filterStatus) {
         case FILTER_SHOW_ACTIVE: return tasks.filter(task => task.done === false)
         case FILTER_SHOW_DONE:   return tasks.filter(task => task.done === true)
